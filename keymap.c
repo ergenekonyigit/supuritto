@@ -56,14 +56,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | shift |   \   |   ~   |   |   |   &   |   ;   |       |   /   |   *   |   -   |   +   |   _   | shift |
  * '-----------------------------------------------'       '-----------------------------------------------'
  *                         ,-----------------------,       ,-----------------------,
- *                         |  cmd  |       | space |       | space | raise |  alt  |
+ *                         |  cmd  |       | space |       | space |       |  alt  |
  *                         '-----------------------'       '-----------------------'
  */
   [_LOWER] = LAYOUT_split_3x6_3(
       _______,  KC_QUOT,  KC_DQUO,  KC_CIRC,  KC_QUES,  KC_GRV,      KC_LBRC,  KC_LT,    KC_EQL,   KC_GT,    KC_RBRC,  KC_BSPC,
       KC_LCTL,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,     KC_LCBR,  KC_LPRN,  KC_COLN,  KC_RPRN,  KC_RCBR,  KC_DEL,
       KC_LSFT,  KC_BSLS,  KC_TILD,  KC_PIPE,  KC_AMPR,  KC_SCLN,     KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,  KC_UNDS,  KC_SFTENT,
-                                    KC_LGUI,  _______,  KC_SPC,      KC_SPC,  MO(_RAISE),  KC_RALT
+                                    KC_LGUI,  _______,  KC_SPC,      KC_SPC,   _______,  KC_RALT
   ),
 
 /* raise
@@ -75,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | shift |   6   |   7   |   8   |   9   |   0   |       |       |       |       |       |       | shift |
  * '-----------------------------------------------'       '-----------------------------------------------'
  *                         ,-----------------------,       ,-----------------------,
- *                         |  cmd  | lower | space |       | space |       |  alt  |
+ *                         |  cmd  |       | space |       | space |       |  alt  |
  *                         '-----------------------'       '-----------------------'
  */
   [_RAISE] = LAYOUT_split_3x6_3(
-      KC_TAB,   _______,  _______,  _______,  _______,     _______,     _______,  _______,  _______,  _______,  _______,  KC_BSPC,
-      KC_LCTL,  KC_1,     KC_2,     KC_3,     KC_4,        KC_5,        KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,
-      KC_LSFT,  KC_6,     KC_7,     KC_8,     KC_9,        KC_0,        _______,  _______,  _______,  _______,  _______,  KC_SFTENT,
-                                    KC_LGUI,  MO(_LOWER),  KC_SPC,      KC_SPC,   _______,  KC_RALT
+      KC_TAB,   _______,  _______,  _______,  _______,  _______,     _______,  _______,  _______,  _______,  _______,  KC_BSPC,
+      KC_LCTL,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,        KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______,
+      KC_LSFT,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,        _______,  _______,  _______,  _______,  _______,  KC_SFTENT,
+                                    KC_LGUI,  _______,  KC_SPC,      KC_SPC,   _______,  KC_RALT
   ),
 
 /* adjust (lower + raise)
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                         |       |       |       |       |   0   |       |       |
  *                         '-----------------------'       '-----------------------'
  */
-  [_RAISE] = LAYOUT_split_3x6_3(
+  [_ADJUST] = LAYOUT_split_3x6_3(
       _______,  KC_F1,  KC_F2,   KC_F3,   KC_F4,    _______,     KC_1,  KC_2,     KC_3,  _______,  _______,  KC_BSPC,
       _______,  KC_F5,  KC_F6,   KC_F7,   KC_F8,    _______,     KC_4,  KC_5,     KC_6,  _______,  _______,  _______,
       _______,  KC_F9,  KC_F10,  KC_F11,  KC_F12,   _______,     KC_7,  KC_8,     KC_9,  _______,  RESET,    EEP_RST,
@@ -328,3 +328,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 #endif // OLED_DRIVER_ENABLE
+
+// Enable the adjust layer when both lower and raise
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
