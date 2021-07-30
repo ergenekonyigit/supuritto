@@ -36,10 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 #define RETRO_TAPPING
 
-
-
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-
+// #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 // Size optimisations
 #ifndef NO_DEBUG
