@@ -15,4 +15,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 # Keymaps for Supuritto
 
-![corne-layout](https://user-images.githubusercontent.com/7110136/127720989-bfd0277a-08d0-41ce-b459-c060a56d65c1.jpg)
+<!-- ![corne-layout](https://user-images.githubusercontent.com/7110136/127720989-bfd0277a-08d0-41ce-b459-c060a56d65c1.jpg) -->
